@@ -2,10 +2,10 @@
   "name": "@micabe/redux-websocket-bridge",
   "version": "0.3.0-0",
   "description": "WebSocket messages to Redux action bridge",
-  "main": "lib/index.js",
-  "module": "lib/index.js",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "files": [
-    "lib/*"
+    "src/*"
   ],
   "author": {
     "author": "Mickael Abensur <mabensur@qynapse.com>",
