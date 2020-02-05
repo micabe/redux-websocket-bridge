@@ -1,5 +1,5 @@
 {
-  "name": "redux-websocket-bridge",
+  "name": "@micabe/redux-websocket-bridge",
   "version": "0.3.0-0",
   "description": "WebSocket messages to Redux action bridge",
   "main": "lib/index.js",
@@ -8,7 +8,7 @@
     "lib/*"
   ],
   "author": {
-    "email": "compulim@hotmail.com",
+    "author": "Mickael Abensur <mabensur@qynapse.com>",
     "name": "William Wong"
   },
   "license": "MIT",
@@ -38,5 +38,8 @@
     "prepare": "rimraf lib && npm run build",
     "test": "jest"
   },
-  "dependencies": {}
+  "dependencies": {
+    "socket.io-client": "^2.3.0",
+    "socketio-wildcard": "^2.0.0"
+  }
 }
