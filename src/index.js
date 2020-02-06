@@ -5,6 +5,7 @@ import isFSA from './isFSA'
 export const CLOSE = `CLOSE`
 export const MESSAGE = `MESSAGE`
 export const OPEN = `OPEN`
+export const REOPEN = `REOPEN`
 export const SEND = `SEND`
 
 export function close() {
@@ -34,8 +35,7 @@ const DEFAULT_OPTIONS = {
   meta: {},
   namespace: '@@websocket/',
   unfold: (payload, webSocket, raw) => {
-    const action = tryParseJSON(payload)
-
+    const action = payload[1]
     return (
       action && {
         ...action,
@@ -68,23 +68,14 @@ export default function createWebSocketMiddleware(urlOrFactory, options = DEFAUL
 
     const patch = require('socketio-wildcard')(io.Manager)
     patch(socket)
+    const webSocket = socket.io
 
-    const webSocket = socket
-    socket.on('connect', () => {
-      store.dispatch({ type: `${namespace}${OPEN}`, meta: { webSocket } })
-    })
     socket.on('disconnect', () => {
       store.dispatch({ type: `${namespace}${CLOSE}`, meta: { webSocket } })
     })
 
-    // on reconnection, reset the transports option, as the Websocket
-    // connection may have failed (caused by proxy, firewall, browser, ...)
-    // socket.on('reconnect_attempt', () => {
-    //   socket.io.opts.transports = ['polling', 'websocket']
-    // })
-
     socket.on('*', event => {
-      console.log(event)
+      let getPayload
       if (
         typeof Blob !== 'undefined' &&
         options.binaryType === 'arraybuffer' &&
