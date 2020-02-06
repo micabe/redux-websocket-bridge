@@ -63,7 +63,6 @@ export default function createWebSocketMiddleware(urlOrFactory, options = DEFAUL
 
   return store => {
     const socket = io(urlOrFactory, {
-      transports: ['websocket'],
       upgrade: true,
     })
 
